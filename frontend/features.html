@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Features — DynVoiceAssist</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.page-hero {
+  padding: 140px 6vw 80px; text-align: center;
+  background: linear-gradient(180deg, var(--s2) 0%, var(--bg) 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content:''; position:absolute; top:-200px; left:50%; transform:translateX(-50%);
+  width:800px; height:800px; border-radius:50%;
+  background: radial-gradient(circle, rgba(58,91,217,.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.page-hero .section-tag { margin-bottom: 14px; }
+.page-hero h1 { font-size: clamp(2rem,5vw,3.4rem); margin-bottom: 18px; }
+.page-hero p { max-width: 520px; margin: 0 auto 36px; font-size: 1.05rem; }
+
+/* ── BIG FEATURE CARDS ── */
+.feat-section { padding: 80px 6vw; }
+.feat-section:nth-child(even) { background: var(--surface); }
+.feat-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 7vw; align-items: center; max-width: 1100px; margin: 0 auto;
+}
+.feat-row.reverse { direction: rtl; }
+.feat-row.reverse > * { direction: ltr; }
+.feat-visual {
+  border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: var(--shadow-h); background: var(--surface);
+}
+.feat-visual-inner {
+  height: 300px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.feat-text .section-tag { margin-bottom: 14px; }
+.feat-text h2 { font-size: clamp(1.6rem,3.5vw,2.2rem); margin-bottom: 14px; }
+.feat-text p  { margin-bottom: 22px; }
+.feat-bullets { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.feat-bullets li {
+  display: flex; align-items: flex-start; gap: 11px; font-size: .88rem; color: var(--muted);
+}
+.feat-bullets li::before {
+  content: '✓'; width: 22px; height: 22px; border-radius: 50%; background: var(--blue-l);
+  color: var(--blue); font-size: .72rem; font-weight: 700; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+
+/* ── VOICE ORB BIG ── */
+.orb-stage {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+}
+.big-orb {
+  width: 140px; height: 140px; border-radius: 50%; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.big-orb-ring {
+  position: absolute; border-radius: 50%;
+  border: 1.5px solid rgba(58,91,217,.22); animation: big-orb-anim 3s ease-in-out infinite;
+}
+.big-orb-ring.r1 { inset: -14px; }
+.big-orb-ring.r2 { inset: -28px; animation-delay: .4s; border-color: rgba(6,182,212,.15); }
+.big-orb-ring.r3 { inset: -44px; animation-delay: .8s; border-color: rgba(58,91,217,.08); }
+@keyframes big-orb-anim{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.04);opacity:.6}}
+.big-orb-core {
+  width: 96px; height: 96px; border-radius: 50%; z-index:1;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(58,91,217,.25);
+}
+.big-orb-core svg { width: 38px; height: 38px; }
+
+/* mini waveform visual */
+.waveform-viz {
+  width: 100%; padding: 24px; display: flex; align-items: center; gap: 12px;
+}
+.wf-bars { display: flex; gap: 4px; align-items: center; flex: 1; }
+.wf-bar {
+  flex: 1; border-radius: 3px; background: var(--blue);
+  opacity: .7; animation: wf-anim 1s ease-in-out infinite;
+}
+.wf-bar:nth-child(odd) { animation-delay: .15s; }
+@keyframes wf-anim{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.25)}}
+
+/* memory visual */
+.mem-visual { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.mem-turn {
+  display: flex; gap: 10px; align-items: center; background: var(--s2);
+  border-radius: 10px; padding: 10px 14px; font-size: .78rem;
+}
+.mem-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink:0; }
+
+/* route visual */
+.route-visual { padding: 24px 28px; display: flex; flex-direction: column; gap: 10px; }
+.route-row {
+  display: flex; align-items: center; gap: 12px; border-radius: 10px; padding: 11px 14px;
+  font-size: .8rem; font-weight: 600; border: 1.5px solid transparent;
+}
+.route-row.active { background: var(--blue-l); border-color: var(--blue); color: var(--blue); }
+.route-row.dim    { background: var(--s2); color: var(--muted); }
+.route-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink:0; }
+
+/* ── CAPABILITY GRID ── */
+.cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 18px; max-width: 1100px; margin: 0 auto; }
+.cap-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 26px; transition: transform .25s, box-shadow .25s;
+}
+.cap-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-h); }
+.cap-icon { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 14px; }
+.cap-card h4 { margin-bottom: 7px; }
+.cap-card p { font-size: .82rem; }
+
+@media(max-width:800px){ .feat-row { grid-template-columns:1fr; } .feat-row.reverse{direction:ltr;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="logo-dot"></span> DynVoiceAssist</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="features.html">Features</a>
+    <a href="assistant.html">Try It</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <a href="assistant.html" class="btn btn-primary">Launch Assistant</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="section-tag">Capabilities</span>
+  <h1>Built different.<br>Designed to listen.</h1>
+  <p>DynVoiceAssist brings together real-time voice, agentic reasoning, and deep memory into one seamless assistant experience.</p>
+  <a href="assistant.html" class="btn btn-primary btn-large">Try It Free</a>
+</div>
+
+<!-- FEATURE 1 — Real-Time Voice -->
+<section class="feat-section">
+  <div class="feat-row ani">
+    <div class="feat-visual">
+      <div class="feat-visual-inner" style="background:linear-gradient(135deg,#eef0ff,#e0e9ff);">
+        <div class="orb-stage">
+          <div class="big-orb">
+            <div class="big-orb-ring r1"></div>
+            <div class="big-orb-ring r2"></div>
+            <div class="big-orb-ring r3"></div>
+            <div class="big-orb-core">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="8.5" y="2" width="7" height="12" rx="3.5" fill="white"/>
+                <path d="M5 11.5A7 7 0 0 0 19 11.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="18.5" x2="12" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="9" y1="22" x2="15" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="waveform-viz">
+        <div class="wave-bars" style="color:var(--blue)"><span/><span/><span/><span/><span/><span/><span/></div>
+        <span style="font-size:.72rem;color:var(--muted);white-space:nowrap;">Listening…</span>
+        <div class="wave-bars" style="color:var(--teal)"><span/><span/><span/><span/><span/><span/><span/></div>
+      </div>
+    </div>
+    <div class="feat-text">
+      <span class="section-tag">Real-Time Voice</span>
+      <h2>Hear you instantly. Answer fast.</h2>
+      <p>DynVoiceAssist captures your voice in real time, streams it for processing, and delivers a spoken answer before you know it's thinking.</p>
+      <ul class="feat-bullets">
+        <li>Low-latency audio capture with smart silence detection</li>
+        <li>Streaming speech recognition — no waiting for you to finish</li>
+        <li>Natural, human-quality voice output</li>
+        <li>Works in noisy environments with noise-robust processing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2 — Agentic Reasoning -->
+<section class="feat-section">
+  <div class="feat-row reverse ani">
+    <div class="feat-visual">
+      <div class="feat-visual-inner" style="background:linear-gradient(135deg,#e0f7f7,#cff7f7);">
+        <div class="route-visual" style="width:100%;max-width:320px;">
+          <div style="font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px;">Query received</div>
+          <div class="route-row active"><div class="route-dot" style="background:var(--blue);"></div> Planning retrieval strategy…</div>
+          <div class="route-row dim"><div class="route-dot" style="background:#d1d5db;"></div> Direct answer</div>
+          <div class="route-row active"><div class="route-dot" style="background:var(--teal);"></div> Searching knowledge base…</div>
+          <div class="route-row dim"><div class="route-dot" style="background:#d1d5db;"></div> Deep multi-step reasoning</div>
+          <div style="margin-top:6px;font-size:.72rem;color:var(--teal);font-weight:600;">✓ Response ready in 0.9s</div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-text">
+      <span class="section-tag">Agentic Intelligence</span>
+      <h2>It doesn't just respond. It reasons.</h2>
+      <p>Before answering, DynVoiceAssist decides the best way to help — whether to answer directly, look something up, or break your question into steps.</p>
+      <ul class="feat-bullets">
+        <li>Automatically picks the right answer strategy per query</li>
+        <li>Retrieves verified information when needed</li>
+        <li>Handles complex multi-step questions gracefully</li>
+        <li>Minimises unnecessary processing for instant simple answers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 3 — Memory -->
+<section class="feat-section">
+  <div class="feat-row ani">
+    <div class="feat-visual">
+      <div class="feat-visual-inner" style="background:linear-gradient(135deg,#f0ebfb,#ede0ff);">
+        <div class="mem-visual" style="width:100%;max-width:320px;">
+          <div style="font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px;">Conversation memory</div>
+          <div class="mem-turn"><div class="mem-icon" style="background:#eef0ff;">👤</div> Set a 3pm meeting reminder</div>
+          <div class="mem-turn"><div class="mem-icon" style="background:#e0f7f7;">🤖</div> Done! Reminder set for 3PM.</div>
+          <div class="mem-turn"><div class="mem-icon" style="background:#eef0ff;">👤</div> Actually, move it to 4pm.</div>
+          <div class="mem-turn" style="border:1.5px solid var(--blue);background:var(--blue-l);"><div class="mem-icon" style="background:#eef0ff;">🤖</div> <span style="color:var(--blue);font-weight:600;">Updated — now 4PM ✓</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-text">
+      <span class="section-tag">Persistent Memory</span>
+      <h2>Remembers what matters. Always.</h2>
+      <p>DynVoiceAssist maintains context across your entire conversation and learns your preferences over time — so it gets better the more you use it.</p>
+      <ul class="feat-bullets">
+        <li>Tracks full conversation context across turns</li>
+        <li>Learns your preferences and communication style</li>
+        <li>Never asks you to repeat yourself</li>
+        <li>Personalises responses from the very first session</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITY GRID -->
+<section style="background:var(--surface);padding:80px 6vw;">
+  <div style="text-align:center;margin-bottom:44px;" class="ani">
+    <span class="section-tag">All Capabilities</span>
+    <h2 style="margin-top:10px;">Everything in one voice</h2>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card ani" data-delay="0">
+      <div class="cap-icon" style="background:#eef0ff;">🌍</div>
+      <h4>Multi-Language</h4>
+      <p>Understands and responds in multiple languages naturally.</p>
+    </div>
+    <div class="cap-card ani" data-delay="60">
+      <div class="cap-icon" style="background:#e0f7f7;">⚡</div>
+      <h4>Sub-Second Response</h4>
+      <p>First spoken word arrives in under one second.</p>
+    </div>
+    <div class="cap-card ani" data-delay="120">
+      <div class="cap-icon" style="background:#dcfce7;">🔒</div>
+      <h4>Privacy First</h4>
+      <p>Your conversations are never sold or shared.</p>
+    </div>
+    <div class="cap-card ani" data-delay="180">
+      <div class="cap-icon" style="background:#fef3c7;">📅</div>
+      <h4>Task Management</h4>
+      <p>Set reminders, events, and to-dos by voice.</p>
+    </div>
+    <div class="cap-card ani" data-delay="0">
+      <div class="cap-icon" style="background:#f0ebfb;">🏠</div>
+      <h4>Device Control</h4>
+      <p>Integrates with smart home and connected devices.</p>
+    </div>
+    <div class="cap-card ani" data-delay="60">
+      <div class="cap-icon" style="background:#ffe4e6;">🎵</div>
+      <h4>Media Control</h4>
+      <p>Play, pause, skip, and search your music by voice.</p>
+    </div>
+    <div class="cap-card ani" data-delay="120">
+      <div class="cap-icon" style="background:#eef0ff;">✍️</div>
+      <h4>Dictation & Drafting</h4>
+      <p>Compose messages, emails, and notes hands-free.</p>
+    </div>
+    <div class="cap-card ani" data-delay="180">
+      <div class="cap-icon" style="background:#e0f7f7;">📊</div>
+      <h4>Live Information</h4>
+      <p>Weather, news, sports scores — current and accurate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div style="padding:0 6vw 80px;">
+  <div style="background:linear-gradient(135deg,var(--blue) 0%,#2a89d9 60%,var(--teal) 100%);border-radius:var(--r-lg);padding:52px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;" class="ani">
+    <div>
+      <h2 style="color:#fff;font-size:clamp(1.5rem,3vw,2rem);">Hear it for yourself.</h2>
+      <p style="color:rgba(255,255,255,.7);margin-top:8px;">Launch the assistant and speak your first command.</p>
+    </div>
+    <a href="assistant.html" style="background:#fff;color:var(--blue);font-weight:700;padding:14px 32px;border-radius:100px;font-size:.95rem;display:inline-block;">Launch Assistant →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo"><span class="logo-dot"></span> DynVoiceAssist</div>
+      <p>Agentic voice intelligence that listens, reasons, and responds.</p>
+    </div>
+    <div><h5>Product</h5><ul><li><a href="features.html">Features</a></li><li><a href="assistant.html">Try It</a></li><li><a href="about.html">About</a></li></ul></div>
+    <div><h5>Resources</h5><ul><li><a href="#">Docs</a></li><li><a href="#">API</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div><h5>Company</h5><ul><li><a href="about.html">Team</a></li><li><a href="contact.html">Contact</a></li><li><a href="#">Privacy</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 DynVoiceAssist. All rights reserved.</span>
+    <span>Built at St. Joseph's College of Engineering, Chennai</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
